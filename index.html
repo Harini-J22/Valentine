@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#fff7fb,#ffe6f1);
+    font-family:Inter, sans-serif;
+    overflow:hidden;
+  }
+  .card{
+    background:white;
+    padding:40px;
+    border-radius:22px;
+    box-shadow:0 15px 40px rgba(194,24,91,.2);
+    text-align:center;
+    max-width:440px;
+    width:90%;
+    position:relative;
+    z-index:2;
+  }
+  h1,h2{font-family:"Playfair Display", serif;color:#c2185b;}
+  p{font-size:18px;color:#555;line-height:1.6;}
+  .btns{margin-top:30px;position:relative;height:120px;}
+  button{border:none;padding:14px 26px;font-size:18px;border-radius:999px;cursor:pointer;font-weight:600;position:absolute;transition:.35s ease;}
+  .yes{background:linear-gradient(135deg,#d81b60,#ff80ab);color:white;left:40px;top:20px;}
+  .yes:hover{transform:scale(1.08)}
+  .no{background:#f2f2f2;color:#555;left:260px;top:20px;}
+  .result{margin-top:26px;font-size:22px;font-family:"Playfair Display", serif;color:#c2185b;}
+  .surprise{display:none;margin-top:30px;padding:28px;border-radius:18px;background:linear-gradient(135deg,#fff0f6,#ffe3ef);box-shadow:0 10px 25px rgba(194,24,91,.25);animation:fadeUp 1.2s ease forwards;}
+  .sign{margin-top:16px;font-weight:600;color:#c2185b;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+  .music-btn{margin-top:22px;background:linear-gradient(135deg,#c2185b,#f06292);color:white;position:static;}
+  footer{margin-top:32px;font-size:14px;color:#777;}
+  .heart{position:fixed;bottom:-20px;width:18px;height:18px;background:linear-gradient(135deg,#d81b60,#ff80ab);transform:rotate(45deg);animation:floatUp linear forwards;opacity:.6;z-index:1;pointer-events:none;}
+  .heart::before,.heart::after{content:"";position:absolute;width:18px;height:18px;background:inherit;border-radius:50%;}
+  .heart::before{left:-9px}
+  .heart::after{top:-9px}
+  @keyframes floatUp{0%{transform:translateY(0) rotate(45deg);opacity:0}15%{opacity:.7}100%{transform:translateY(-120vh) rotate(45deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>My Love 💖</h1>
+  <p>You are my today, my tomorrow, and every heartbeat in between.</p>
+  <h2>Will you be my Valentine? 🌹</h2>
+  <div class="btns" id="btnArea">
+    <button class="yes" onclick="sayYes()">YES 💕</button>
+    <button class="no" id="noBtn">NO 🙈</button>
+  </div>
+  <div class="result" id="result"></div>
+  <div class="surprise" id="surprise">
+    <h2>Forever Starts Here 💍</h2>
+    <p>You didn’t just choose to be my Valentine…<br>You chose to be my <strong>always</strong>.</p>
+    <p>Every smile, every dream, every tomorrow —<br>I want it all with you.</p>
+    <p class="sign">Happy Valentine’s Day, my love ❤️<br>— Harini</p>
+  </div>
+  <button class="music-btn" onclick="toggleMusic()">🎵 Play “Inaiye”</button>
+  <audio id="music" loop>
+    <source src="inaiye.mp3" type="audio/mpeg">
+  </audio>
+  <footer>Made with endless love ❤️</footer>
+</div>
+<script>
+function sayYes(){
+  document.querySelector('.btns').style.display='none';
+  document.getElementById('result').innerHTML='She said YES 💕';
+  document.getElementById('surprise').style.display='block';
+  for(let i=0;i<18;i++){setTimeout(createHeartBurst,i*120);}  
+}
+function createHeartBurst(){
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left='50%';
+  h.style.animationDuration='4s';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+}
+// Elegant NO button magnetic escape
+const noBtn=document.getElementById('noBtn');
+const area=document.getElementById('btnArea');
+let noX=260,noY=20;
+noBtn.addEventListener('mousemove',()=>{
+  const maxX=area.clientWidth-noBtn.offsetWidth;
+  const maxY=area.clientHeight-noBtn.offsetHeight;
+  noX+=(Math.random()>0.5?1:-1)*60;
+  noY+=(Math.random()>0.5?1:-1)*40;
+  noX=Math.max(0,Math.min(noX,maxX));
+  noY=Math.max(0,Math.min(noY,maxY));
+  noBtn.style.left=noX+'px';
+  noBtn.style.top=noY+'px';
+});
+// Music
+let playing=false;const music=document.getElementById('music');
+function toggleMusic(){playing?music.pause():music.play();playing=!playing;}
+// Floating hearts
+setInterval(()=>{
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=(6+Math.random()*6)+'s';
+  h.style.width=h.style.height=(12+Math.random()*14)+'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),12000);
+},450);
+</script>
+</body>
+</html>
