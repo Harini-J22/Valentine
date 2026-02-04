@@ -30,10 +30,10 @@
   h1,h2{font-family:"Playfair Display", serif;color:#c2185b;}
   p{font-size:18px;color:#555;line-height:1.6;}
   .btns{margin-top:30px;position:relative;height:120px;}
-  button{border:none;padding:14px 26px;font-size:18px;border-radius:999px;cursor:pointer;font-weight:600;position:absolute;transition:.25s ease;}
+  button{border:none;padding:14px 26px;font-size:18px;border-radius:999px;cursor:pointer;font-weight:600;position:absolute;transition:.35s ease;}
   .yes{background:linear-gradient(135deg,#d81b60,#ff80ab);color:white;left:40px;top:20px;}
   .yes:hover{transform:scale(1.08)}
-  .no{background:#f2f2f2;color:#555;right:40px;top:20px;}
+  .no{background:#f2f2f2;color:#555;left:260px;top:20px;}
   .result{margin-top:26px;font-size:22px;font-family:"Playfair Display", serif;color:#c2185b;}
   .surprise{display:none;margin-top:30px;padding:28px;border-radius:18px;background:linear-gradient(135deg,#fff0f6,#ffe3ef);box-shadow:0 10px 25px rgba(194,24,91,.25);animation:fadeUp 1.2s ease forwards;}
   .sign{margin-top:16px;font-weight:600;color:#c2185b;}
@@ -52,7 +52,7 @@
   <h1>My Love 💖</h1>
   <p>You are my today, my tomorrow, and every heartbeat in between.</p>
   <h2>Will you be my Valentine? 🌹</h2>
-  <div class="btns">
+  <div class="btns" id="btnArea">
     <button class="yes" onclick="sayYes()">YES 💕</button>
     <button class="no" id="noBtn">NO 🙈</button>
   </div>
@@ -68,11 +68,47 @@
   <footer>Made with endless love ❤️</footer>
 </div>
 <script>
-function sayYes(){document.querySelector('.btns').style.display='none';document.getElementById('result').innerHTML='She said YES 💕';document.getElementById('surprise').style.display='block';for(let i=0;i<18;i++){setTimeout(createHeartBurst,i*120);}}
-function createHeartBurst(){const h=document.createElement('div');h.className='heart';h.style.left='50%';h.style.animationDuration='4s';document.body.appendChild(h);setTimeout(()=>h.remove(),4000);}
-const noBtn=document.getElementById('noBtn');const area=document.querySelector('.btns');noBtn.addEventListener('mouseenter',()=>{const x=Math.random()*(area.clientWidth-noBtn.offsetWidth);const y=Math.random()*(area.clientHeight-noBtn.offsetHeight);noBtn.style.left=x+'px';noBtn.style.top=y+'px';});
-let playing=false;const music=document.getElementById('music');function toggleMusic(){if(!music.src){alert('Add inaiye.mp3 next to index.html 💿');return;}playing?music.pause():music.play();playing=!playing;}
-setInterval(()=>{const h=document.createElement('div');h.className='heart';h.style.left=Math.random()*100+'vw';h.style.animationDuration=(6+Math.random()*6)+'s';h.style.width=h.style.height=(12+Math.random()*14)+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),12000);},450);
+function sayYes(){
+  document.querySelector('.btns').style.display='none';
+  document.getElementById('result').innerHTML='She said YES 💕';
+  document.getElementById('surprise').style.display='block';
+  for(let i=0;i<18;i++){setTimeout(createHeartBurst,i*120);}  
+}
+function createHeartBurst(){
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left='50%';
+  h.style.animationDuration='4s';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+}
+// Elegant NO button magnetic escape
+const noBtn=document.getElementById('noBtn');
+const area=document.getElementById('btnArea');
+let noX=260,noY=20;
+noBtn.addEventListener('mousemove',()=>{
+  const maxX=area.clientWidth-noBtn.offsetWidth;
+  const maxY=area.clientHeight-noBtn.offsetHeight;
+  noX+=(Math.random()>0.5?1:-1)*60;
+  noY+=(Math.random()>0.5?1:-1)*40;
+  noX=Math.max(0,Math.min(noX,maxX));
+  noY=Math.max(0,Math.min(noY,maxY));
+  noBtn.style.left=noX+'px';
+  noBtn.style.top=noY+'px';
+});
+// Music
+let playing=false;const music=document.getElementById('music');
+function toggleMusic(){if(!music.src){alert('Add inaiye.mp3 next to index.html 💿');return;}playing?music.pause():music.play();playing=!playing;}
+// Floating hearts
+setInterval(()=>{
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=(6+Math.random()*6)+'s';
+  h.style.width=h.style.height=(12+Math.random()*14)+'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),12000);
+},450);
 </script>
 </body>
 </html>
