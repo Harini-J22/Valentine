@@ -76,10 +76,29 @@
   <footer>Made with endless love ❤️</footer>
 </div>
 <script>
+// === Music controls: start from 62 seconds ===
+let playing=false;const music=document.getElementById('music');
+function toggleMusic(){
+  if(!playing){
+    music.currentTime = 62; // start from 62 seconds
+    music.play();
+    playing = true;
+  } else {
+    music.pause();
+    playing = false;
+  }
+}
+
 function sayYes(){
   document.querySelector('.btns').style.display='none';
   document.getElementById('result').innerHTML='He said YES, the best decision ever 💖';
   document.getElementById('surprise').style.display='block';
+
+  // Also start music from 62s on YES (romantic timing)
+  music.currentTime = 62;
+  music.play();
+  playing = true;
+
   for(let i=0;i<18;i++){setTimeout(createHeartBurst,i*120);}  
 }
 function createHeartBurst(){
@@ -104,9 +123,6 @@ noBtn.addEventListener('mousemove',()=>{
   noBtn.style.left=noX+'px';
   noBtn.style.top=noY+'px';
 });
-// Music
-let playing=false;const music=document.getElementById('music');
-function toggleMusic(){playing?music.pause():music.play();playing=!playing;}
 // Floating hearts
 setInterval(()=>{
   const h=document.createElement('div');
